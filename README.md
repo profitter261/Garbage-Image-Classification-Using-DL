@@ -53,7 +53,7 @@ While the model performs well on test data, real-world deployment may require fu
 In conclusion, this project highlights how AI and deep learning can make a tangible impact on environmental sustainability, moving us closer to smarter and cleaner cities
   
 ## Dataset:-
- - ### Garbage Classification (6 Classes):-
+- ### Garbage Classification (6 Classes):-
     - ***Description:*** This dataset contains images categorized into six classes: cardboard, glass, metal, paper, plastic, and trash.
     - ***Size:*** Approximately 2,467 images.
     - ***Link:***:-  [Kaggle Dataset for Garbage Classification (6 Classes)](https://www.kaggle.com/datasets/asdasdasasdas/garbageclassification?utm_source=chatgpt.com)
