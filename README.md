@@ -38,7 +38,7 @@ I have Built a deep learning model that classifies images of waste into categori
 ## Results:- 
 - Preprocessed, augmented dataset
 - Multiple deep learning models trained and evaluated
-- Final app with high-accuracy waste category prediction
+- Final app with above 80% accuracy waste category prediction
 - Accessible UI using Streamlit
 
 ## Conclusion:-
