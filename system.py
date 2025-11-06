@@ -30,7 +30,8 @@ def load_lottieurl(url: str):
         return None
 
 # --- Load local Lottie animation for trash concept ---
-with open("src\Home_Robot.json", "r", encoding="utf-8") as f:
+# Load local Lottie animation for trash concept
+with open("src/Home_Robot.json", "r", encoding="utf-8") as f:
     trash_lottie = json.load(f)
 
 # --- Custom CSS for neon-style navigation bar ---
@@ -276,7 +277,7 @@ elif selected == "Image Classification":
             }
 
             # Load Lottie animation for processing
-            with open("src\Loading.json", "r", encoding="utf-8") as f:
+            with open("src/Loading.json", "r", encoding="utf-8") as f:
                 loading_lottie = json.load(f)
 
             uploaded_file = st.file_uploader("Choose an image:", type=["jpg", "jpeg", "png"])
@@ -323,3 +324,4 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
