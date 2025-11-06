@@ -15,32 +15,24 @@ import requests  # For fetching animations from URLs
 import json  # For loading JSON Lottie files
 import time  # For adding delays
 import gdown
+import os
+from tensorflow.keras.models import load_model
 
-MODEL_PATH = "InceptionV3_final.h5"
+
+
+print(os.path.getsize(MODEL_PATH))
 GDRIVE_ID = "17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi"
+MODEL_PATH = "InceptionV3_final.h5"
 
-if not os.path.exists(MODEL_PATH):
-    st.info("Downloading model... This may take a minute ⏳")
-    # Use gdown with fuzzy=True for large files
-    url = f"https://drive.google.com/uc?id={GDRIVE_ID}"
-    gdown.download(url, MODEL_PATH, quiet=False, fuzzy=True)
+url = f"https://drive.google.com/uc?id={GDRIVE_ID}"
+gdown.download(url, MODEL_PATH, quiet=False, fuzzy=True)
 
 # Check that the file is complete
 if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 100_000_000:  # ~100 MB
     st.error("Model download failed or file is corrupted!")
     st.stop()
-
-# Load the model
-try:
-    model = load_model(MODEL_PATH)
-    st.success("Model loaded successfully ✅")
-except Exception as e:
-    st.error(f"Failed to load model: {e}")
-    st.stop()
     
-# Set page layout to wide for better UI
-st.set_page_config(layout="wide")
-
+model = load_model(MODEL_PATH)
 # --- Function to safely load Lottie animations from a URL ---
 def load_lottieurl(url: str):
     try:
@@ -348,6 +340,7 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
 
