@@ -5,6 +5,7 @@ import pandas as pd  # For data manipulation
 from tensorflow.keras.models import load_model  # For loading trained Keras models
 from tensorflow.keras.preprocessing import image  # For image preprocessing
 import cv2  # For image processing
+import os
 from PIL import Image  # For handling images
 import plotly.express as px  # For interactive plots
 import plotly.graph_objects as go  # For advanced plotting
@@ -336,6 +337,7 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
 
