@@ -29,7 +29,7 @@ I have Built a deep learning model that classifies images of waste into categori
 - ### Metal Garbage Classification:-
    - ![Metal Garbage Classification](https://github.com/profitter261/Garbage-Image-Classification-Using-DL/blob/main/Prediction%20Images/Garbage%20Metal%20Prediction.png)
 - ### Paper Garbage Classification:-
-   - ![Paper Garbage Classification](https://github.com/profitter261/Garbage-Image-Classification-Using-DL/blob/main/Prediction%20Images/Garbage%20Paper%20Prediction.png)
+   - ![Paper Garbage Classification](https://github.com/profitter261/Garbage-Image-Classification-Using-DL/blob/main/Prediction%20Images/Paper%20Garbage%20Prediction.png)
 - ### Plastic Garbage Classification:-
    - ![Cardboard Garbage Classification](https://github.com/profitter261/Garbage-Image-Classification-Using-DL/blob/main/Prediction%20Images/Plastic%20Garbage%20Prediction.png)
 - ### Trash Garbage Classification:-
