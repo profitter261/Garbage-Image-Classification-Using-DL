@@ -17,15 +17,17 @@ import time  # For adding delays
 import gdown
 
 MODEL_PATH = "InceptionV3_final.h5"
-GDRIVE_URL = "https://drive.google.com/uc?id=17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi"
+GDRIVE_ID = "17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi"
+GDRIVE_URL = f"https://drive.google.com/uc?id={GDRIVE_ID}"
 
-# Download if not present
+# Download model if it doesn't exist
 if not os.path.exists(MODEL_PATH):
     st.info("Downloading model... This may take a minute ⏳")
     gdown.download(GDRIVE_URL, MODEL_PATH, quiet=False)
 
-# Load model
+# Load the model
 model = load_model(MODEL_PATH)
+st.success("Model loaded successfully ✅")
     
 # Set page layout to wide for better UI
 st.set_page_config(layout="wide")
@@ -337,6 +339,7 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
 
