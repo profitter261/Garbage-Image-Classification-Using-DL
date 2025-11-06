@@ -13,7 +13,6 @@ from streamlit_lottie import st_lottie  # For embedding Lottie animations
 import requests  # For fetching animations from URLs
 import json  # For loading JSON Lottie files
 import time  # For adding delays
-!pip install gdown
 import gdown
 
 url = "https://drive.google.com/file/d/17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi/view?usp=drive_link"
@@ -335,5 +334,6 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
