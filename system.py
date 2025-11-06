@@ -18,15 +18,16 @@ import gdown
 
 MODEL_PATH = "InceptionV3_final.h5"
 GDRIVE_ID = "17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi"
-GDRIVE_URL = f"https://drive.google.com/uc?id={GDRIVE_ID}"
 
-# Download model if not present
 if not os.path.exists(MODEL_PATH):
     st.info("Downloading model... This may take a minute ⏳")
-    output = gdown.download(GDRIVE_URL, MODEL_PATH, quiet=False, fuzzy=True)
-    if output is None or not os.path.exists(MODEL_PATH):
-        st.error("Model download failed! Please check the file ID and Google Drive permissions.")
-        st.stop()
+    url = f"https://drive.google.com/uc?id={GDRIVE_ID}"
+    gdown.download(url, MODEL_PATH, quiet=False, fuzzy=True)
+
+# Verify the file size after download
+if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 100_000_000:  # ~100 MB minimum
+    st.error("Model download failed or file is corrupted!")
+    st.stop()
 
 # Load the model
 try:
@@ -346,6 +347,7 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
 
