@@ -6,7 +6,7 @@ requests==2.32.5
 
 # Deep Learning
 tensorflow==2.14.0
-opencv-python-headless==4.9.0.74
+opencv-python-headless==4.9.0.80
 
 # Streamlit and UI components
 streamlit==1.51.0
@@ -43,4 +43,5 @@ narwhals==2.10.2
 referencing==0.37.0
 rpds-py==0.28.0
 six==1.17.0
+
 
