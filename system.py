@@ -13,7 +13,18 @@ from streamlit_lottie import st_lottie  # For embedding Lottie animations
 import requests  # For fetching animations from URLs
 import json  # For loading JSON Lottie files
 import time  # For adding delays
+!pip install gdown
+import gdown
 
+url = "https://drive.google.com/file/d/17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi/view?usp=drive_link"
+output = "InceptionV3_final.h5"
+gdown.download(url, output, quiet=False)
+
+url = "https://drive.google.com/file/d/17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi/view?usp=drive_link"
+r = requests.get(url)
+with open("InceptionV3_final.h5", "wb") as f:
+    f.write(r.content)
+    
 # Set page layout to wide for better UI
 st.set_page_config(layout="wide")
 
@@ -261,7 +272,7 @@ elif selected == "Image Classification":
     with col2:
         if selected == "Image Classification":
             # Load trained model
-            model = load_model("InceptionV3_final.h5")
+            
 
             # Class mapping dictionary (must match training)
             dic = {0 : "cardboard", 3: "Paper", 1: "Glass", 2: "Metal", 4: "Plastic", 5: "Trash"}
@@ -324,4 +335,5 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
