@@ -20,14 +20,21 @@ MODEL_PATH = "InceptionV3_final.h5"
 GDRIVE_ID = "17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi"
 GDRIVE_URL = f"https://drive.google.com/uc?id={GDRIVE_ID}"
 
-# Download model if it doesn't exist
+# Download model if not present
 if not os.path.exists(MODEL_PATH):
     st.info("Downloading model... This may take a minute ⏳")
-    gdown.download(GDRIVE_URL, MODEL_PATH, quiet=False)
+    output = gdown.download(GDRIVE_URL, MODEL_PATH, quiet=False, fuzzy=True)
+    if output is None or not os.path.exists(MODEL_PATH):
+        st.error("Model download failed! Please check the file ID and Google Drive permissions.")
+        st.stop()
 
 # Load the model
-model = load_model(MODEL_PATH)
-st.success("Model loaded successfully ✅")
+try:
+    model = load_model(MODEL_PATH)
+    st.success("Model loaded successfully ✅")
+except Exception as e:
+    st.error(f"Failed to load model: {e}")
+    st.stop()
     
 # Set page layout to wide for better UI
 st.set_page_config(layout="wide")
@@ -339,6 +346,7 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
 
