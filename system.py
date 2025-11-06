@@ -15,14 +15,16 @@ import json  # For loading JSON Lottie files
 import time  # For adding delays
 import gdown
 
-url = "https://drive.google.com/file/d/17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi/view?usp=drive_link"
-output = "InceptionV3_final.h5"
-gdown.download(url, output, quiet=False)
+MODEL_PATH = "InceptionV3_final.h5"
+GDRIVE_URL = "https://drive.google.com/uc?id=17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi"
 
-url = "https://drive.google.com/file/d/17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi/view?usp=drive_link"
-r = requests.get(url)
-with open("InceptionV3_final.h5", "wb") as f:
-    f.write(r.content)
+# Download if not present
+if not os.path.exists(MODEL_PATH):
+    st.info("Downloading model... This may take a minute ⏳")
+    gdown.download(GDRIVE_URL, MODEL_PATH, quiet=False)
+
+# Load model
+model = load_model(MODEL_PATH)
     
 # Set page layout to wide for better UI
 st.set_page_config(layout="wide")
@@ -334,6 +336,7 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
 
