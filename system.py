@@ -21,11 +21,12 @@ GDRIVE_ID = "17tOiPzn4l-5uhvg1PETRkZ5-3YOMG4Vi"
 
 if not os.path.exists(MODEL_PATH):
     st.info("Downloading model... This may take a minute ⏳")
+    # Use gdown with fuzzy=True for large files
     url = f"https://drive.google.com/uc?id={GDRIVE_ID}"
     gdown.download(url, MODEL_PATH, quiet=False, fuzzy=True)
 
-# Verify the file size after download
-if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 100_000_000:  # ~100 MB minimum
+# Check that the file is complete
+if not os.path.exists(MODEL_PATH) or os.path.getsize(MODEL_PATH) < 100_000_000:  # ~100 MB
     st.error("Model download failed or file is corrupted!")
     st.stop()
 
@@ -347,6 +348,7 @@ elif selected == "Image Classification":
                             st.warning("The model is fairly confident, but there is some uncertainty.")
                         else:
                             st.error("The model is not very confident. The prediction might be unreliable.")
+
 
 
 
