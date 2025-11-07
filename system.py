@@ -29,6 +29,10 @@ interpreter.allocate_tensors()
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
 
+# --- Extract quantization parameters ---
+in_scale, in_zero = input_details[0]['quantization']
+out_scale, out_zero = output_details[0]['quantization']
+
 # --- Function to safely load Lottie animations from a URL ---
 def load_lottieurl(url: str):
     try:
@@ -234,20 +238,21 @@ elif selected == "Image Classification":
                         st.markdown("<p style='text-align:center;'>Analyzing image... please wait ⏳</p>", unsafe_allow_html=True)
 
                 # --- Preprocess image for TFLite model ---
-                img_resized = img.resize((input_details[0]['shape'][2], input_details[0]['shape'][1]))
-                img_array = np.array(img_resized, dtype=np.uint8)
-                img_array = np.expand_dims(img_array, axis=0)
-
-                time.sleep(1.5)
+                img_resized = img.resize((224, 224))
+                img_array = np.expand_dims(np.array(img_resized, dtype=np.uint8), axis=0)
 
                 # --- Run inference with TFLite ---
                 interpreter.set_tensor(input_details[0]['index'], img_array)
                 interpreter.invoke()
                 predictions = interpreter.get_tensor(output_details[0]['index'])[0]
 
+                # --- Dequantize output ---
+                predictions = (predictions.astype(np.float32) - out_zero) * out_scale
                 predicted_class = np.argmax(predictions)
                 confidence = predictions[predicted_class]
                 class_name = dic[predicted_class]
+
+                time.sleep(1.5)
 
                 with col2_disp:
                     placeholder.empty()
@@ -257,8 +262,8 @@ elif selected == "Image Classification":
                         st.write(f"**Recycling Info:** {recycling_info[class_name]}")
                         st.write(f"**Confidence:** {confidence*100:.2f}%")
                         if confidence >= 0.8:
-                            st.info("The model is very confident about this prediction.")
+                            st.info("✅ The model is very confident about this prediction.")
                         elif confidence >= 0.78:
-                            st.warning("The model is fairly confident, but there is some uncertainty.")
+                            st.warning("⚠️ The model is fairly confident, but there is some uncertainty.")
                         else:
-                            st.error("The model is not very confident. The prediction might be unreliable.")
+                            st.error("❌ The model is not very confident. The prediction might be unreliable.")
